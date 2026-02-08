@@ -26,26 +26,39 @@ public class GameListener implements Listener {
 
         if (!gameManager.getAlivePlayers().contains(player)) return;
 
-        if (event.getFrom().getBlock().equals(event.getTo().getBlock())) return;
-
-        // Vérifier que c'est dans la piscine
-        Location pool = gameManager.getPoolCenter();
-        if (pool == null) return;
-
-        double distance = player.getLocation().distance(pool);
-        if (distance > gameManager.getPoolRadius()) return;
-
-        // Placer la laine de sa couleur sous le joueur si le bloc est de l'eau
-        Block blockBelow = player.getLocation().subtract(0, 1, 0).getBlock();
-        Material playerWool = gameManager.getColor(player);
-
-        if (blockBelow.getType() == Material.WATER && playerWool != null) {
-            blockBelow.setType(playerWool);
-            player.sendMessage("§aSplash ! Bloc de ta couleur placé.");
+        // Vérifier si c'est le tour du joueur
+        if (!player.equals(gameManager.getCurrentPlayer())) {
+            // Ce n'est pas le tour de ce joueur, on ne fait rien
+            return;
         }
 
-        // Élimination si le joueur marche sur une laine (la sienne ou celle d'un autre)
-        if (blockBelow.getType().name().endsWith("_WOOL")) {
+        // Vérifier si le joueur est dans la zone de la piscine
+        if (!gameManager.isInPoolZone(player.getLocation())) return;
+
+        // Bloc où se trouve le joueur (pas en dessous)
+        Block blockAtPlayer = player.getLocation().getBlock();
+        Material playerWool = gameManager.getColor(player);
+
+        // Le joueur touche l'eau pour la première fois (il est DANS l'eau)
+        if (blockAtPlayer.getType() == Material.WATER && playerWool != null && !gameManager.isInWater(player)) {
+            // Marquer le joueur comme étant dans l'eau
+            gameManager.setInWater(player, true);
+
+            // Placer la laine à l'endroit où le joueur a touché l'eau
+            blockAtPlayer.setType(playerWool);
+
+            player.sendMessage("§a§l💧 SPLASH ! §aTon bloc a été placé.");
+
+            // Notifier le GameManager que le joueur a terminé son saut
+            gameManager.onPlayerJumped(player);
+
+            // Réinitialiser le flag
+            gameManager.setInWater(player, false);
+            return;
+        }
+
+        // Élimination si le joueur touche de la laine (bloc déjà pris)
+        if (blockAtPlayer.getType().name().endsWith("_WOOL")) {
             gameManager.eliminatePlayer(player);
         }
     }

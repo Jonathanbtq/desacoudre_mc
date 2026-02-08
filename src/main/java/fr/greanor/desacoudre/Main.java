@@ -2,23 +2,35 @@ package fr.greanor.desacoudre;
 
 import org.bukkit.plugin.java.JavaPlugin;
 import fr.greanor.desacoudre.Listener.GameListener;
+import org.bukkit.Bukkit;
 
 public class Main extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        //Initialisation du GameManager
-        GameManager gameManager = new GameManager();
+        // Initialisation du PoolManager
+        PoolManager poolManager = new PoolManager(this);
 
-        // Enregistrement de la commande /dac
-        this.getCommand("dac").setExecutor(new DacCommand(gameManager));
+        // Initialisation du GameManager (avec référence au PoolManager)
+        GameManager gameManager = new GameManager(poolManager);
 
+        // Enregistrement de /createpool
+        PoolCommands poolCommands = new PoolCommands(poolManager);
+        this.getCommand("createpool").setExecutor(poolCommands);
+        Bukkit.getPluginManager().registerEvents(poolCommands, this);
+
+        // Enregistrement de /dac (avec accès au PoolManager)
+        this.getCommand("dac").setExecutor(new DacCommand(gameManager, poolManager));
+
+        // Enregistrement du listener du jeu
         getServer().getPluginManager().registerEvents(
-            new GameListener(gameManager),
-            this
+                new GameListener(gameManager),
+                this
         );
 
-        getLogger().info("Plugin Dé à Coudre démarré !");
+        getLogger().info("━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+        getLogger().info("  Plugin Dé à Coudre démarré !");
+        getLogger().info("━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
     }
 
     @Override
