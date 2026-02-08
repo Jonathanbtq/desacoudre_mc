@@ -1,0 +1,15 @@
+name: DesACoudre
+version: 1.0
+main: fr.greanor.desacoudre.Main
+api-version: 1.21
+
+commands:
+  dac:
+    description: Commande principale du mini-jeu Dés à Coudre
+    usage: /dac start
+    
+  dacsetspawn:
+    description: Définit le point de départ du jeu
+
+  dacsetpool:
+    description: Définit le centre de la piscine

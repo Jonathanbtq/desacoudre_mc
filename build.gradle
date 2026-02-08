@@ -2,18 +2,32 @@ plugins {
     id 'java'
 }
 
-group = 'me.greanor'
-version = '1.0-SNAPSHOT'
+group = 'fr.greanor'
+version = '1.0'
 
 repositories {
     mavenCentral()
+
+    maven {
+        url = "https://repo.papermc.io/repository/maven-public/"
+    }
 }
 
 dependencies {
-    testImplementation platform('org.junit:junit-bom:5.10.0')
-    testImplementation 'org.junit.jupiter:junit-jupiter'
+    compileOnly "io.papermc.paper:paper-api:1.21.1-R0.1-SNAPSHOT"
 }
 
-test {
-    useJUnitPlatform()
+java {
+    toolchain.languageVersion.set(JavaLanguageVersion.of(21))
+}
+
+tasks.register("copyJar", Copy) {
+    dependsOn tasks.jar   // ✅ important
+
+    from(tasks.jar.archiveFile)
+    into("run/plugins")
+}
+
+tasks.build {
+    finalizedBy("copyJar")
 }
