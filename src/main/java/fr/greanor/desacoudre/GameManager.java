@@ -209,6 +209,20 @@ public class GameManager {
         Bukkit.broadcastMessage("§a✓ La piscine a été réinitialisée !");
     }
 
+    public void stopParty(String poolName) {
+        if (!running) {
+            Bukkit.broadcastMessage("§c⚠ Aucune partie en cours !");
+            return;
+        }
+
+        if (!currentPoolName.equals(poolName)) {
+            Bukkit.broadcastMessage("§c⚠ La partie en cours n'est pas pour la piscine '" + poolName + "' !");
+            return;
+        }
+
+        endGame();
+    }
+
     public Material getColor(Player player) {
         return playerColors.get(player);
     }

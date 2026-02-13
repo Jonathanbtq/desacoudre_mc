@@ -155,4 +155,14 @@ public class PoolManager {
 
         return loc;
     }
+
+    /**
+     * Supprime une piscine de la configuration et de la mémoire
+     * @param name
+     */
+    public void deletePool(String name) {
+        pools.remove(name);
+        config.set("pools." + name, null);
+        savePools();
+    }
 }

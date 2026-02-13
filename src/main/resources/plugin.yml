@@ -5,11 +5,13 @@ api-version: 1.21
 
 commands:
   dac:
-    description: Commande principale du mini-jeu Dés à Coudre
-    usage: /dac start
-    
-  dacsetspawn:
-    description: Définit le point de départ du jeu
+    description: Commande principale du mini-jeu Dé à Coudre
+    usage: /dac [start|setspawn|listpools|stop]
 
-  dacsetpool:
-    description: Définit le centre de la piscine
+  createpool:
+    description: Crée une nouvelle piscine en sélectionnant deux coins
+    usage: /createpool <nom>
+
+  deletepool:
+    description: Supprime une piscine existante
+    usage: /deletePool <nom>

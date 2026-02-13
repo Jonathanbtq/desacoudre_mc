@@ -56,6 +56,24 @@ public class PoolCommands implements CommandExecutor, Listener {
             return true;
         }
 
+        if (command.getName().equalsIgnoreCase("deletepool")) {
+            if (args.length != 1) {
+                player.sendMessage("§cUsage : /deletePool <nom>");
+                return true;
+            }
+
+            String poolName = args[0];
+
+            if (poolManager.getPool(poolName) == null) {
+                player.sendMessage("§cAucune piscine trouvée avec ce nom !");
+                return true;
+            }
+
+            poolManager.deletePool(poolName);
+            player.sendMessage("§a✓ Piscine '§e" + poolName + "§a' supprimée avec succès !");
+            return true;
+        }
+
         return false;
     }
 
