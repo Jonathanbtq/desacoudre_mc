@@ -19,6 +19,9 @@ public class Main extends JavaPlugin {
         this.getCommand("createpool").setExecutor(poolCommands);
         Bukkit.getPluginManager().registerEvents(poolCommands, this);
 
+        // Enreguistrement de /deletepool
+        this.getCommand("deletepool").setExecutor(poolCommands);
+
         // Enregistrement de /dac (avec accès au PoolManager)
         this.getCommand("dac").setExecutor(new DacCommand(gameManager, poolManager));
 
