@@ -34,7 +34,7 @@ public class GameListener implements Listener {
         }
 
         Block blockAtPlayer = player.getLocation().getBlock();
-        Block blockBelow  = blockAtPlayer.getRelative(0, -1, 0);
+        Block blockBelow = blockAtPlayer.getRelative(0, -1, 0);
         Material playerWool = gameManager.getColor(player);
 
         // Élimination si le joueur touche de la laine (bloc déjà pris)
@@ -51,7 +51,12 @@ public class GameListener implements Listener {
         if (!gameManager.isInPoolZone(player.getLocation())) return;
 
         // Le joueur touche l'eau pour la première fois (il est DANS l'eau)
-        if (blockAtPlayer.getType() == Material.WATER && playerWool != null && !gameManager.isInWater(player)) {
+        if (
+            blockAtPlayer.getType() == Material.WATER
+            && playerWool != null
+            && !gameManager.isInWater(player)
+        ) {
+
             // Marquer le joueur comme étant dans l'eau
             gameManager.setInWater(player, true);
 

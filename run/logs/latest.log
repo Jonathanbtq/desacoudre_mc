@@ -1,55 +1,72 @@
-[18:49:18] [ServerMain/INFO]: [bootstrap] Running Java 21 (OpenJDK 64-Bit Server VM 21.0.10+7-LTS; Eclipse Adoptium Temurin-21.0.10+7) on Windows 11 10.0 (amd64)
-[18:49:18] [ServerMain/INFO]: [bootstrap] Loading Paper 1.21.11-111-main@302c47c (2026-02-07T22:59:49Z) for Minecraft 1.21.11
-[18:49:19] [ServerMain/INFO]: [PluginInitializerManager] Initializing plugins...
-[18:49:19] [Paper Plugin Remapper Thread - 2/INFO]: [PluginRemapper] Remapping plugin 'plugins\desacoudre-1.0.jar'...
-[18:49:19] [Paper Plugin Remapper Thread - 2/INFO]: [PluginRemapper] Done remapping plugin 'plugins\desacoudre-1.0.jar' in 432ms.
-[18:49:20] [ServerMain/INFO]: [PluginInitializerManager] Initialized 1 plugin
-[18:49:20] [ServerMain/INFO]: [PluginInitializerManager] Bukkit plugins (1):
- - DesACoudre (1.0)
-[18:49:25] [ServerMain/INFO]: Environment: Environment[sessionHost=https://sessionserver.mojang.com, servicesHost=https://api.minecraftservices.com, profilesHost=https://api.mojang.com, name=PROD]
-[18:49:27] [ServerMain/INFO]: Loaded 1470 recipes
-[18:49:27] [ServerMain/INFO]: Loaded 1584 advancements
-[18:49:27] [ServerMain/INFO]: [ca.spottedleaf.dataconverter.minecraft.datatypes.MCTypeRegistry] Initialising converters for DataConverter...
-[18:49:27] [ServerMain/INFO]: [ca.spottedleaf.dataconverter.minecraft.datatypes.MCTypeRegistry] Finished initialising converters for DataConverter in 366,0ms
-[18:49:27] [Server thread/INFO]: Starting minecraft server version 1.21.11
-[18:49:27] [Server thread/INFO]: Loading properties
-[18:49:28] [Server thread/INFO]: This server is running Paper version 1.21.11-111-main@302c47c (2026-02-07T22:59:49Z) (Implementing API version 1.21.11-R0.1-SNAPSHOT)
-[18:49:28] [Server thread/INFO]: [spark] This server bundles the spark profiler. For more information please visit https://docs.papermc.io/paper/profiling
-[18:49:28] [Server thread/INFO]: Server Ping Player Sample Count: 12
-[18:49:28] [Server thread/INFO]: Using 4 threads for Netty based IO
-[18:49:29] [Server thread/INFO]: [MoonriseCommon] Paper is using 3 worker threads, 1 I/O threads
-[18:49:29] [Server thread/INFO]: Default game type: SURVIVAL
-[18:49:29] [Server thread/INFO]: Generating keypair
-[18:49:29] [Server thread/INFO]: Starting Minecraft server on *:25565
-[18:49:29] [Server thread/INFO]: Paper: Using Java compression from Velocity.
-[18:49:29] [Server thread/INFO]: Paper: Using Java cipher from Velocity.
-[18:49:29] [Server thread/INFO]: [DesACoudre] Loading server plugin DesACoudre v1.0
-[18:49:29] [Server thread/INFO]: Server permissions file permissions.yml is empty, ignoring it
-[18:49:29] [Server thread/INFO]: Preparing level "world"
-[18:49:30] [Server thread/INFO]: Loading 0 persistent chunks for world 'minecraft:overworld'...
-[18:49:30] [Server thread/INFO]: Preparing spawn area: 100%
-[18:49:30] [Server thread/INFO]: Prepared spawn area in 2 ms
-[18:49:30] [Server thread/INFO]: Loading 0 persistent chunks for world 'minecraft:the_nether'...
-[18:49:30] [Server thread/INFO]: Prepared spawn area in 1 ms
-[18:49:30] [Server thread/INFO]: Loading 0 persistent chunks for world 'minecraft:the_end'...
-[18:49:30] [Server thread/INFO]: Prepared spawn area in 2 ms
-[18:49:30] [Server thread/INFO]: Done preparing level "world" (0.553s)
-[18:49:30] [Server thread/INFO]: [DesACoudre] Enabling DesACoudre v1.0
-[18:49:30] [Server thread/INFO]: [DesACoudre] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-[18:49:30] [Server thread/INFO]: [DesACoudre]   Plugin Dé à Coudre démarré !
-[18:49:30] [Server thread/INFO]: [DesACoudre] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-[18:49:30] [Server thread/INFO]: [spark] Starting background profiler...
-[18:49:30] [Server thread/INFO]: [spark] The async-profiler engine is not supported for your os/arch (windows11/amd64), so the built-in Java engine will be used instead.
-[18:49:30] [Server thread/INFO]: Running delayed init tasks
-[18:49:30] [Server thread/INFO]: Done (12.949s)! For help, type "help"
-[18:49:30] [Paper Async Task Handler Thread - 1/INFO]: *** Currently you are 2 build(s) behind ***
-[18:49:30] [Paper Async Task Handler Thread - 1/INFO]: *** It is highly recommended to download the latest build from https://papermc.io/downloads/paper ***
-[18:50:10] [User Authenticator #0/INFO]: UUID of player Jonathanbtq is e07252d5-9e90-4280-8f63-23ab6e085506
-[18:50:12] [Server thread/INFO]: Jonathanbtq joined the game
-[18:50:12] [Server thread/INFO]: Jonathanbtq[/127.0.0.1:49451] logged in with entity id 62 at ([world]35.49043270734146, 94.0, -63.40201777207859)
-[18:50:18] [Server thread/INFO]: Jonathanbtq issued server command: /dac
-[18:50:21] [Server thread/INFO]: Jonathanbtq issued server command: /dac tp
-[18:50:23] [Server thread/INFO]: Jonathanbtq issued server command: /dac tp pool1
-[18:50:26] [Server thread/INFO]: Jonathanbtq issued server command: /dac tp pool1
-[18:53:54] [Server thread/INFO]: Jonathanbtq lost connection: Disconnected
-[18:53:54] [Server thread/INFO]: Jonathanbtq left the game
+[21:13:55] [ServerMain/INFO]: [bootstrap] Running Java 21 (OpenJDK 64-Bit Server VM 21.0.10+7-LTS; Eclipse Adoptium Temurin-21.0.10+7) on Windows 11 10.0 (amd64)
+[21:13:55] [ServerMain/INFO]: [bootstrap] Loading Paper 1.21.11-111-main@302c47c (2026-02-07T22:59:49Z) for Minecraft 1.21.11
+[21:13:56] [ServerMain/INFO]: [PluginInitializerManager] Initializing plugins...
+[21:13:56] [Paper Plugin Remapper Thread - 2/INFO]: [PluginRemapper] Remapping plugin 'plugins\desacoudre-1.0.jar'...
+[21:13:57] [Paper Plugin Remapper Thread - 2/INFO]: [PluginRemapper] Done remapping plugin 'plugins\desacoudre-1.0.jar' in 564ms.
+[21:13:57] [ServerMain/INFO]: [PluginInitializerManager] Initialized 2 plugins
+[21:13:57] [ServerMain/INFO]: [PluginInitializerManager] Bukkit plugins (2):
+ - DesACoudre (1.0), TheNewEconomy (0.1.4.0)
+[21:14:03] [ServerMain/INFO]: Environment: Environment[sessionHost=https://sessionserver.mojang.com, servicesHost=https://api.minecraftservices.com, profilesHost=https://api.mojang.com, name=PROD]
+[21:14:06] [ServerMain/INFO]: Loaded 1470 recipes
+[21:14:06] [ServerMain/INFO]: Loaded 1584 advancements
+[21:14:06] [ServerMain/INFO]: [ca.spottedleaf.dataconverter.minecraft.datatypes.MCTypeRegistry] Initialising converters for DataConverter...
+[21:14:07] [ServerMain/INFO]: [ca.spottedleaf.dataconverter.minecraft.datatypes.MCTypeRegistry] Finished initialising converters for DataConverter in 540,1ms
+[21:14:07] [Server thread/INFO]: Starting minecraft server version 1.21.11
+[21:14:07] [Server thread/INFO]: Loading properties
+[21:14:07] [Server thread/INFO]: This server is running Paper version 1.21.11-111-main@302c47c (2026-02-07T22:59:49Z) (Implementing API version 1.21.11-R0.1-SNAPSHOT)
+[21:14:07] [Server thread/INFO]: [spark] This server bundles the spark profiler. For more information please visit https://docs.papermc.io/paper/profiling
+[21:14:07] [Server thread/INFO]: Server Ping Player Sample Count: 12
+[21:14:07] [Server thread/INFO]: Using 4 threads for Netty based IO
+[21:14:08] [Server thread/INFO]: [MoonriseCommon] Paper is using 3 worker threads, 1 I/O threads
+[21:14:09] [Server thread/INFO]: Default game type: SURVIVAL
+[21:14:09] [Server thread/INFO]: Generating keypair
+[21:14:09] [Server thread/INFO]: Starting Minecraft server on *:25565
+[21:14:09] [Server thread/INFO]: Paper: Using Java compression from Velocity.
+[21:14:09] [Server thread/INFO]: Paper: Using Java cipher from Velocity.
+[21:14:09] [Server thread/INFO]: [TheNewEconomy] Loading server plugin TheNewEconomy v0.1.4.0
+[21:14:09] [Server thread/INFO]: [TheNewEconomy] Loading configurations!
+[21:14:10] [Server thread/INFO]: [DesACoudre] Loading server plugin DesACoudre v1.0
+[21:14:10] [Server thread/INFO]: Server permissions file permissions.yml is empty, ignoring it
+[21:14:10] [Server thread/INFO]: Preparing level "world"
+[21:14:11] [Server thread/INFO]: Loading 0 persistent chunks for world 'minecraft:overworld'...
+[21:14:11] [Server thread/INFO]: Preparing spawn area: 100%
+[21:14:11] [Server thread/INFO]: Prepared spawn area in 2 ms
+[21:14:11] [Server thread/INFO]: Loading 0 persistent chunks for world 'minecraft:the_nether'...
+[21:14:11] [Server thread/INFO]: Prepared spawn area in 0 ms
+[21:14:11] [Server thread/INFO]: Loading 0 persistent chunks for world 'minecraft:the_end'...
+[21:14:11] [Server thread/INFO]: Prepared spawn area in 0 ms
+[21:14:11] [Server thread/INFO]: Done preparing level "world" (1.289s)
+[21:14:11] [Server thread/INFO]: [TheNewEconomy] Enabling TheNewEconomy v0.1.4.0
+[21:14:14] [Server thread/WARN]: [TheNewEconomy] Unable to contact update server!
+[21:14:15] [Server thread/WARN]: [TheNewEconomy] Unable to contact update server!
+[21:14:15] [Server thread/INFO]: [TheNewEconomy] The New Economy has been enabled!
+[21:14:15] [Server thread/INFO]: [DesACoudre] Enabling DesACoudre v1.0
+[21:14:15] [Server thread/WARN]: Vault n'est pas installé ! Le système de mises est désactivé.
+[21:14:15] [Server thread/INFO]: [DesACoudre] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[21:14:15] [Server thread/INFO]: [DesACoudre]   Plugin Dé à Coudre démarré !
+[21:14:15] [Server thread/INFO]: [DesACoudre] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[21:14:15] [Server thread/INFO]: [spark] Starting background profiler...
+[21:14:15] [Server thread/INFO]: [spark] The async-profiler engine is not supported for your os/arch (windows11/amd64), so the built-in Java engine will be used instead.
+[21:14:15] [Server thread/INFO]: Running delayed init tasks
+[21:14:15] [Server thread/INFO]: Done (21.666s)! For help, type "help"
+[21:14:15] [Paper Async Task Handler Thread - 1/INFO]: *** Currently you are 16 build(s) behind ***
+[21:14:15] [Paper Async Task Handler Thread - 1/INFO]: *** It is highly recommended to download the latest build from https://papermc.io/downloads/paper ***
+[21:14:19] [User Authenticator #0/INFO]: UUID of player Jonathanbtq is e07252d5-9e90-4280-8f63-23ab6e085506
+[21:14:21] [Server thread/INFO]: Jonathanbtq joined the game
+[21:14:21] [Server thread/INFO]: Jonathanbtq[/127.0.0.1:57989] logged in with entity id 57 at ([world]22.264035457728735, 72.0, -58.911778937733125)
+[21:14:24] [Server thread/INFO]: Jonathanbtq issued server command: /dac
+[21:14:28] [Server thread/INFO]: Jonathanbtq issued server command: /dac duel
+[21:14:32] [Server thread/INFO]: Jonathanbtq issued server command: /dac duel Jonathanbtq 410
+[21:14:39] [Server thread/INFO]: Jonathanbtq issued server command: /dac start
+[21:14:42] [Server thread/INFO]: Jonathanbtq issued server command: /dac start pool1
+[21:14:42] [Server thread/INFO]: [Dé à Coudre] Une nouvelle partie commence ! Faites /dac join pour participer !
+[21:14:42] [Server thread/INFO]: La partie est en attente de joueurs. Faites /dac join pour participer !
+[21:14:45] [Server thread/INFO]: Jonathanbtq issued server command: /dac join
+[21:14:45] [Server thread/INFO]: Jonathanbtq a rejoint la partie !
+[21:15:31] [Server thread/INFO]: Jonathanbtq issued server command: /dac party start
+[21:15:31] [Server thread/INFO]: Il faut au moins 2 joueurs inscrits pour démarrer la partie !
+[21:15:51] [Server thread/INFO]: Jonathanbtq issued server command: /dac stop
+[21:15:54] [Server thread/INFO]: Jonathanbtq issued server command: /dac stop pool1
+[21:15:54] [Server thread/INFO]: ⚠ Aucune partie en cours !
+[23:20:54] [Server thread/INFO]: Jonathanbtq lost connection: Disconnected
+[23:20:54] [Server thread/INFO]: Jonathanbtq left the game
