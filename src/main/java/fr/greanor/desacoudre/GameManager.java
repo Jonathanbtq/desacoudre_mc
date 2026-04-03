@@ -17,10 +17,12 @@ import java.util.List;
 public class GameManager {
 
     private boolean running = false;
+    private boolean waitingForPlayers = false;
     private Location spawnLocation; // Spawn global (spectateurs)
     private Location divingBoardLocation; // Position du plongeoir
     private String currentPoolName; // Nom de la piscine active
     private final PoolManager poolManager;
+    private DuelManager duelManager;
 
     private final Map<Player, Material> playerColors = new HashMap<>();
     private final Map<Player, Boolean> playersInWater = new HashMap<>();
@@ -41,6 +43,7 @@ public class GameManager {
     private final List<Player> playerQueue = new ArrayList<>(); // File d'attente des joueurs
     private Player currentPlayer = null; // Joueur qui doit sauter
     private final Set<Player> alivePlayers = new HashSet<>();
+    private final Set<Player> joinedPlayers = new HashSet<>();
 
     public GameManager(PoolManager poolManager) {
         this.poolManager = poolManager;
@@ -48,72 +51,90 @@ public class GameManager {
 
     public void startGame(String poolName) {
         PoolManager.PoolData poolData = poolManager.getPoolData(poolName);
-
         if (poolData == null) {
             Bukkit.broadcastMessage("§c⚠ La piscine '" + poolName + "' n'existe pas !");
             return;
         }
-
-        // Charger le spawn et le diving de la piscine si disponibles
         Location poolSpawn = poolData.spawnLocation;
         Location poolDiving = poolData.divingBoardLocation;
-
-        // Si la piscine a ses propres positions, les utiliser
         if (poolSpawn != null) {
             spawnLocation = poolSpawn;
         }
         if (poolDiving != null) {
             divingBoardLocation = poolDiving;
         }
-
-        // Vérification finale
         if (spawnLocation == null) {
             Bukkit.broadcastMessage("§c⚠ Le point de spawn n'est pas défini pour cette piscine !");
             Bukkit.broadcastMessage("§7Utilisez /dac setspawn <nom_piscine>");
             return;
         }
-
         if (divingBoardLocation == null) {
             Bukkit.broadcastMessage("§c⚠ Le plongeoir n'est pas défini pour cette piscine !");
             Bukkit.broadcastMessage("§7Utilisez /dac setdiving <nom_piscine>");
             return;
         }
-
-        if (running) {
-            Bukkit.broadcastMessage("§c⚠ Le jeu est déjà en cours !");
+        if (running || waitingForPlayers) {
+            Bukkit.broadcastMessage("§c⚠ Le jeu est déjà en cours ou en attente de joueurs !");
             return;
         }
-
-        alivePlayers.clear();
-        alivePlayers.addAll(Bukkit.getOnlinePlayers());
-
-        if (alivePlayers.size() < 1) {
-            Bukkit.broadcastMessage("§cIl faut au moins 2 joueurs pour démarrer !");
-            return;
-        }
-
-        running = true;
+        // On passe en mode attente de joueurs
+        waitingForPlayers = true;
+        running = false;
         currentPoolName = poolName;
-
-        // Initialiser la file d'attente
+        joinedPlayers.clear();
+        alivePlayers.clear();
         playerQueue.clear();
-        playerQueue.addAll(alivePlayers);
+        playerColors.clear();
+        Bukkit.broadcastMessage("§aLa partie est en attente de joueurs. Faites /dac join pour participer !");
+    }
 
-        // Téléporter tous les joueurs au spawn global
-        for (Player p : alivePlayers) {
-            p.teleport(spawnLocation);
+    public boolean joinGame(Player player) {
+        if (!waitingForPlayers || currentPoolName == null) {
+            player.sendMessage("§cAucune partie n'est en attente de joueurs actuellement.");
+            return false;
         }
+        if (joinedPlayers.contains(player)) {
+            player.sendMessage("§eVous avez déjà rejoint la partie !");
+            return false;
+        }
+        joinedPlayers.add(player);
+        alivePlayers.add(player);
+        playerQueue.add(player);
+        player.teleport(spawnLocation);
+        assignColors();
+        Bukkit.broadcastMessage("§a" + player.getName() + " a rejoint la partie !");
+        // Suppression du lancement automatique à 2 joueurs
+        return true;
+    }
 
+    public boolean launchGameByAdmin() {
+        if (!waitingForPlayers || currentPoolName == null) {
+            Bukkit.broadcastMessage("§cAucune partie n'est en attente de lancement.");
+            return false;
+        }
+        if (joinedPlayers.size() < 2) {
+            Bukkit.broadcastMessage("§cIl faut au moins 2 joueurs inscrits pour démarrer la partie !");
+            return false;
+        }
+        launchGame();
+        return true;
+    }
+
+    private void launchGame() {
+//        if (joinedPlayers.size() < 2) {
+//            Bukkit.broadcastMessage("§cIl faut au moins 2 joueurs pour démarrer !");
+//            return;
+//        }
+        waitingForPlayers = false;
+        running = true;
+        // Téléporter tous les joueurs déjà fait dans joinGame
         assignColors();
         Bukkit.broadcastMessage("§a✓ Couleurs assignées aux joueurs !");
-
         Bukkit.broadcastMessage("§e━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
         Bukkit.broadcastMessage("§6§l    DÉ À COUDRE DÉMARRÉ !");
-        Bukkit.broadcastMessage("§aPiscine : §f" + poolName);
+        Bukkit.broadcastMessage("§aPiscine : §f" + currentPoolName);
         Bukkit.broadcastMessage("§aJoueurs en vie : §e" + alivePlayers.size());
         Bukkit.broadcastMessage("§e━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
-
-        // Lancer le premier tour
         nextTurn();
     }
 
@@ -158,6 +179,12 @@ public class GameManager {
             Bukkit.broadcastMessage("§6§l    🏆 VICTOIRE 🏆");
             Bukkit.broadcastMessage("§aLe gagnant est §e§l" + winner.getName() + "§a !");
             Bukkit.broadcastMessage("§e━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+
+            // Si c'est un duel, notifier le DuelManager
+            if (duelManager != null && duelManager.isDuelInProgress()) {
+                duelManager.endDuel(winner);
+            }
+
             endGame();
         }
     }
@@ -168,15 +195,40 @@ public class GameManager {
         playerColors.clear();
         playersInWater.clear();
         playerQueue.clear();
+        joinedPlayers.clear();
         currentPlayer = null;
         running = false;
-
-        if (spawnLocation != null) {
+        waitingForPlayers = false;
+        // Récompenses : lire le montant dans le YML (returnspawn.yml)
+        ReturnSpawnManager returnSpawnManager = Main.getReturnSpawnManager();
+        double reward = 100.0;
+        if (returnSpawnManager != null) {
+            // Lecture du reward dans le YML si présent
+            org.bukkit.configuration.file.FileConfiguration config = org.bukkit.configuration.file.YamlConfiguration.loadConfiguration(new java.io.File(Main.getPlugin(Main.class).getDataFolder(), "returnspawn.yml"));
+            reward = config.getDouble("reward", 100.0);
+            // Gagnant(s)
+            if (getAlivePlayers().size() == 1) {
+                Player winner = getAlivePlayers().iterator().next();
+                winner.sendMessage("§aFélicitations, tu remportes " + reward + " coins !");
+                returnSpawnManager.addWin(winner.getName(), reward);
+                // À adapter si tu as un EconomyManager : economyManager.add(winner, reward);
+            }
+            // Perdants
+            for (Player p : Bukkit.getOnlinePlayers()) {
+                if (getAlivePlayers().contains(p)) continue;
+                returnSpawnManager.addLoss(p.getName(), 0.0);
+            }
+        }
+        // Téléportation au point de retour si défini
+        if (returnSpawnManager != null && returnSpawnManager.getReturnSpawn() != null) {
+            for (Player p : Bukkit.getOnlinePlayers()) {
+                p.teleport(returnSpawnManager.getReturnSpawn());
+            }
+        } else if (spawnLocation != null) {
             for (Player p : Bukkit.getOnlinePlayers()) {
                 p.teleport(spawnLocation);
             }
         }
-
         Bukkit.broadcastMessage("§7La partie est terminée. Prêt pour un nouveau round !");
     }
 
@@ -231,6 +283,10 @@ public class GameManager {
         return running;
     }
 
+    public boolean isWaitingForPlayers() {
+        return waitingForPlayers;
+    }
+
     public Set<Player> getAlivePlayers() {
         return alivePlayers;
     }
@@ -259,6 +315,11 @@ public class GameManager {
     // Définir le diving pour une piscine spécifique
     public void setPoolDiving(String poolName, Location loc) {
         poolManager.setPoolDiving(poolName, loc);
+    }
+
+    // Définir le DuelManager (injection de dépendance)
+    public void setDuelManager(DuelManager duelManager) {
+        this.duelManager = duelManager;
     }
 
     public boolean isInWater(Player player) {
@@ -336,3 +397,4 @@ public class GameManager {
                 z >= zMin && z <= zMax;
     }
 }
+

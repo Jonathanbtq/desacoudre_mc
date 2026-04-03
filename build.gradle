@@ -15,6 +15,7 @@ repositories {
 
 dependencies {
     compileOnly "io.papermc.paper:paper-api:1.21.1-R0.1-SNAPSHOT"
+    compileOnly fileTree(dir: 'src/main/java/net/milkbowl/vault/economy', include: ['*.java'])
 }
 
 java {
